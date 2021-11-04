@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, ScrollView, ActivityIndicator, View , Text} from 'react-native';
-import { ListItem } from 'react-native-elements'
+import { StyleSheet, ScrollView,  View , Text, SafeAreaView} from 'react-native';
 // import { ScrollView } from "react-native-gesture-handler";
 
 
@@ -31,9 +30,7 @@ if (firebase.apps.length === 0) {
 firebase.firestore().settings({});
 
 
-//const usersCollection =await firestore().collection('Users').get();
 
-//const chatsRef = collection(db, 'cities');
 
 
 
@@ -65,29 +62,47 @@ function UserScreen(props) {
   }, []);
 
   return (
-    
-    <ScrollView style={styles.container}>
-      {users.map((user) => {
-        return (
-          <ListItem
-            key={Math.floor(Math.random() * 100)}
-            bottomDivider
-            chevron>
 
 
-              <ListItem.Title>{user.name}</ListItem.Title>
-              <ListItem.Subtitle>{user.email}</ListItem.Subtitle>
+    <SafeAreaView style= {styles.container}>
 
-              {user.message.map((m) => { return (<Text>{`${m}                    `}</Text>) })}
+      <ScrollView>
+
+        {users.map((user) => {
+
+        
+          return (
+
+            <View>
+          <View style={styles.sectionHeader}>
+          
+
+
+          
+          <Text style={{ fontWeight: "bold"}}>{user.email}</Text></View>
+          <Text><Text style={{ fontWeight: "bold"}}>Name:</Text>{ ` ${user.name} \n`}</Text>
 
 
 
-          </ListItem>
+
+          {user.message.map((m) => { return (<Text>{`${m} \n`}</Text>) })}
 
 
-        );
-      })}
-    </ScrollView>
+
+          </View> 
+          )
+        })}
+
+
+
+      </ScrollView>
+
+
+
+
+    </SafeAreaView>
+
+
   );
 }
 
@@ -96,7 +111,7 @@ function UserScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 22
+    backgroundColor: '#fff',
   },
   preloader: {
     left: 0,
@@ -106,7 +121,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },
+  sectionHeader: {
+    backgroundColor: '#efefef',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
 })
 
 
